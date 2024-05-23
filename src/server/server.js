@@ -3,8 +3,10 @@ const express = require('express');
 const routes = require('./routes');
 const loadModel = require('../services/loadModel');
 const InputError = require('../exceptions/InputError');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
 (async () => {
   try {
@@ -41,9 +43,9 @@ const app = express();
       });
     });
 
-    const port = 3000;
-    app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}`);
+    const port = process.env.PORT || 3000;
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`Server running on http://0.0.0.0:${port}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
